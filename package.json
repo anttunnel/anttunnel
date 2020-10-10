@@ -1,24 +1,22 @@
 {
-  "name": "localtunnel",
-  "description": "Expose localhost to the world",
-  "version": "2.0.0",
+  "name": "@anttunnel/anttunnel",
+  "description": "Expose localhost ports",
+  "version": "1.0.3",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/localtunnel/localtunnel.git"
+    "url": "git://github.com/anttunnel/anttunnel.git"
   },
-  "author": "Roman Shtylman <shtylman@gmail.com>",
+  "author": "Anttunnel <contact@anttunnel.com>",
   "contributors": [
     "Roman Shtylman <shtylman@gmail.com>",
     "Gert Hengeveld <gert@hichroma.com>",
-    "Tom Coleman <tom@hichroma.com>"
+    "Tom Coleman <tom@hichroma.com>",
+    "Anttunnel <contact@anttunnel.com>"
   ],
-  "main": "./localtunnel.js",
+  "main": "./anttunnel.js",
   "bin": {
-    "lt": "./bin/lt.js"
-  },
-  "scripts": {
-    "test": "mocha --ui qunit --reporter list --timeout 60000 -- *.spec.js"
+    "anttunnel": "bin/anttunnel.js"
   },
   "dependencies": {
     "axios": "0.19.0",
@@ -26,10 +24,18 @@
     "openurl": "1.1.1",
     "yargs": "13.3.0"
   },
-  "devDependencies": {
-    "mocha": "~1.17.0"
-  },
   "engines": {
     "node": ">=8.3.0"
+  },
+  "bugs": {
+    "url": "https://github.com/anttunnel/anttunnel/issues"
+  },
+  "homepage": "https://github.com/anttunnel/anttunnel#readme",
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
   }
 }

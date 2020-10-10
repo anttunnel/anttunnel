@@ -3,29 +3,34 @@
 
 const openurl = require('openurl');
 const yargs = require('yargs');
+const axios = require('axios');
 
-const localtunnel = require('../localtunnel');
+const localtunnel = require('../anttunnel');
 const { version } = require('../package');
 
 const { argv } = yargs
-  .usage('Usage: lt --port [num] <options>')
+  .usage('Usage: anttunnel --port [num] <options>')
   .env(true)
   .option('p', {
     alias: 'port',
     describe: 'Internal HTTP server port',
   })
-  .option('h', {
-    alias: 'host',
-    describe: 'Upstream server providing forwarding',
-    default: 'https://localtunnel.me',
-  })
   .option('s', {
     alias: 'subdomain',
     describe: 'Request this subdomain',
   })
+  .option('d', {
+    alias: 'domain',
+    describe: 'Request a domain, Options: ant-tunnel.com anttunnel.com opentun.nl gametun.nl webtun.nl',
+  })
   .option('l', {
     alias: 'local-host',
     describe: 'Tunnel traffic to this host instead of localhost, override Host header to this host',
+  })
+  .option('r', {
+    alias: 'region',
+    describe: 'Region for the tunnel, Options - SFO, FRA, BLR, NYC',
+    default: 'SFO',
   })
   .option('local-https', {
     describe: 'Tunnel traffic to a local HTTPS server',
@@ -65,7 +70,9 @@ if (typeof argv.port !== 'number') {
 (async () => {
   const tunnel = await localtunnel({
     port: argv.port,
-    host: argv.host,
+    host: '',
+    region: argv.region,
+    domain: argv.domain,
     subdomain: argv.subdomain,
     local_host: argv.localHost,
     local_https: argv.localHttps,
@@ -81,16 +88,19 @@ if (typeof argv.port !== 'number') {
     throw err;
   });
 
-  console.log('your url is: %s', tunnel.url);
-
-  /**
-   * `cachedUrl` is set when using a proxy server that support resource caching.
-   * This URL generally remains available after the tunnel itself has closed.
-   * @see https://github.com/localtunnel/localtunnel/pull/319#discussion_r319846289
-   */
-  if (tunnel.cachedUrl) {
-    console.log('your cachedUrl is: %s', tunnel.cachedUrl);
+  console.log('http tunnel is ready: %s', tunnel.url);
+  /*console.log('Setting up https tunnel... (this might take up to 30 seconds)');
+  const urlWithoutProtocol = new URL(tunnel.url).host;
+  //get https tunnel
+  try
+  {
+    var httpsUrl = "https://"+urlWithoutProtocol;
+    await axios.get(httpsUrl);
+    
+  } catch (e) {
+    
   }
+  console.log('https tunnel is ready: %s', httpsUrl);*/
 
   if (argv.open) {
     openurl.open(tunnel.url);
