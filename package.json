@@ -1,7 +1,7 @@
 {
   "name": "@anttunnel/anttunnel",
   "description": "Expose localhost ports",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "repository": {
     "type": "git",

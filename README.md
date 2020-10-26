@@ -7,17 +7,17 @@ anttunnel exposes your localhost to the world for easy testing and sharing!
 ### Globally
 
 ```
-npm install -g anttunnel/anttunnel
+npm install -g @anttunnel/anttunnel
 ```
 
 ### As a dependency in your project
 
 ```
-yarn add anttunnel/anttunnel
+yarn add @anttunnel/anttunnel
 ```
 
 ```
-npm install --save anttunnel/anttunnel
+npm install --save @anttunnel/anttunnel
 ```
 
 ## CLI usage
